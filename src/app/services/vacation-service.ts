@@ -2,6 +2,9 @@ import { HttpClient } from "@angular/common/http";
 import { VacationCreateModel } from "../models/vacation-create-model";
 import { environment } from "../../environments/environment";
 import { Inject } from "@angular/core";
+import { Observable } from "rxjs";
+import { PagedResult } from "../models/paged-result";
+import { VacationModel } from "../models/vacation-model";
 
 @Inject('root')
 export class VacationService{
@@ -36,4 +39,32 @@ export class VacationService{
     })
   }
 
+  public getApailableDays(): Observable<{AvailableDays: number}>{
+    return this.http.get<{AvailableDays:number}>(`${environment.backendUri}/api/Vacation/available`, {
+      headers: {
+        'Authorization':`Bearer ${localStorage.getItem('jwt')}`
+      }
+    })
+  }
+
+  public getAll(page: number, pageSize: number){
+    return this.http.get<PagedResult<VacationModel>>(
+      `${environment.backendUri}/api/Vacation/all?page=${page}&pageSize=${pageSize}`,
+      {
+        headers: {
+          'Authorization':`Bearer ${localStorage.getItem('jwt')}`
+        }
+      })
+  }
+
+  public getByUser(page: number, pageSize: number){
+
+    return this.http.get<PagedResult<VacationModel>>(
+      `${environment.backendUri}/api/Vacation/user?page=${page}&pageSize=${pageSize}`,
+      {
+        headers: {
+          'Authorization':`Bearer ${localStorage.getItem('jwt')}`
+        }
+      })
+  }
 }
