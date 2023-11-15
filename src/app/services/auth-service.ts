@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Inject } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { environment } from "../../environments/environment";
 import { RegisterModel } from "../models/register-model";
 import { Observable } from "rxjs";
@@ -8,7 +8,7 @@ import { TokenModel } from "../models/token-model";
 import { PagedResult } from "../models/paged-result";
 import { UserModel } from "../models/User";
 
-@Inject('root')
+@Injectable()
 export class AuthService{
   constructor(private http: HttpClient){
 
