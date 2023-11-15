@@ -51,4 +51,41 @@ export class AuthService{
       }
     });
   }
+
+  public saveToken(token: TokenModel){
+    localStorage.setItem('jwt', token.token);
+  }
+
+  public getUserId(){
+    return this.decodePayload()['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'];
+  }
+
+  public getUserName(){
+    return this.decodePayload()['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'];
+  }
+
+  public getEmail(){
+    return this.decodePayload()['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'];
+  }
+
+  public getRoles(){
+    let roles = this.decodePayload()['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+    if(typeof(roles)===typeof('string')){
+      return [roles];
+    }else{
+      return roles;
+    }
+  }
+
+  private decodePayload(){
+    let payload = this.getPayload();
+    if(!payload){
+      return null;
+    }
+    return JSON.parse(atob(payload));
+  }
+
+  private getPayload(){
+    return localStorage.getItem('jwt')?.split('.')[1];
+  }
 }
