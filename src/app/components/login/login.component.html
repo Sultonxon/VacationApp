@@ -1,13 +1,13 @@
 
 <div class="login">
-  <form novalidate class="login__form" style="width: 600px; height: 200px;"  (ngSubmit)="onClick()">
+  <form name="login-form" novalidate class="login__form" style="width: 600px; height: 200px;"  (ngSubmit)="onClick()">
     <div>
       <label for="email">Email:</label>
-      <input type="email" formControlName="email" placeholder="Email" id="email">
+      <input type="email" name="email" [(ngModel)]="email" placeholder="Email" id="email">
     </div>
     <div>
       <label for="password">Password:</label>
-      <input type="password" formControlName="password" placeholder="Password" id="password">
+      <input type="password" name="password" [(ngModel)]="password" placeholder="Password" id="password">
     </div>
     <div>
       <button (click)="redirectToReturnUrl()" class="cancel__button">Cancel</button>

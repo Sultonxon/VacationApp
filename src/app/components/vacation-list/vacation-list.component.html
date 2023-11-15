@@ -1,0 +1,22 @@
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>From</th>
+      <th>To</th>
+      <th>Reason</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (v of vacations; track v.id) {
+      <tr>
+        <td>{{v.id}}</td>
+        <td>{{v.dateFrom}}</td>
+        <td>{{v.dateTo}}</td>
+        <td>{{v.reason}}</td>
+
+      </tr>
+    }
+  </tbody>
+</table>

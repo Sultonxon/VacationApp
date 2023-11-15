@@ -34,7 +34,7 @@ export class LoginComponent {
 
     this.authService.login(new LoginModel(this.email, this.password)).subscribe((response: TokenModel) => {
       localStorage.setItem('jwt', response.token);
-      //this.redirectToReturnUrl();
+      this.redirectToReturnUrl();
     });
 
   }
