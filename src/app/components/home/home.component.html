@@ -1,0 +1,11 @@
+<div class="row py-4">
+  <div class="col-5 border-1">
+    <app-employee-list (selectUserIdEvent)="selectUser($event)"></app-employee-list>
+  </div>
+  <div class="col-2 d-flex justify-content-center align-items-center">
+    <div class="hr bg-dark"></div>
+  </div>
+  <div class="col-5 border-1">
+    <app-vacation-list [userId]="selectedUserId"></app-vacation-list>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+
+<header>
+  <nav class="p-3 d-flex justify-content-around">
+    <ul class="d-flex align-items-center">
+      <li><a routerLink="/">Home</a></li>
+      <li><a routerLink="/create-vacation">Create Vacation</a></li>
+      @if (isAdmin()) {
+        <li><a routerLink="/register">Create User</a></li>
+      }
+    </ul>
+    <div>
+      <h4 class="fw-bold opacity-75">{{authService.getUserName()}}</h4>
+      @if (isLogedIn()) {
+      <button class="btn btn-danger" (click)="logout()">Logout</button>
+      }
+    </div>
+  </nav>
+</header>

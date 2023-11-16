@@ -7,10 +7,33 @@ import { LoginModel } from "../models/login-model";
 import { TokenModel } from "../models/token-model";
 import { PagedResult } from "../models/paged-result";
 import { UserModel } from "../models/User";
+import { UserUpdateModel } from "../models/user-update-model";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class AuthService{
-  constructor(private http: HttpClient){
+  refreshPassword(model: { id: string; password: string; }) {
+    return this.http.post(`${environment.backendUri}/api/Auth/refresh-password`, model, {
+      headers: {
+        'Authorization':`Bearer ${localStorage.getItem('jwt')}`
+      }
+    });
+  }
+  remove(id: string) {
+    return this.http.delete(`${environment.backendUri}/api/Auth/delete/${id}`, {
+      headers: {
+        'Authorization':`Bearer ${localStorage.getItem('jwt')}`
+      }
+    });
+  }
+  isLogedIn(): boolean {
+    return localStorage.getItem('jwt') !== null;
+  }
+  logout() {
+    localStorage.removeItem('jwt');
+    this.router.navigate(['/login']);
+  }
+  constructor(private http: HttpClient, private router: Router){
 
   }
 
@@ -36,12 +59,27 @@ export class AuthService{
     });
   }
 
-  public login(model: LoginModel): Observable<TokenModel>{
-    return this.http.post<TokenModel>(`${environment.backendUri}/api/Auth/login`, model, {
+  public update(model: UserUpdateModel): Observable<Object> {
+    return this.http.post(`${environment.backendUri}/api/Auth/update`, model, {
       headers: {
         'Authorization':`Bearer ${localStorage.getItem('jwt')}`
       }
     });
+  }
+
+  public refreshToken(){
+
+    this.http.post<TokenModel>(`${environment.backendUri}/api/Auth/refresh-token`,{},  {
+      headers: {
+        'Authorization':`Bearer ${localStorage.getItem('jwt')}`
+      }
+    }).subscribe((res)=>{
+      this.saveToken(res);
+    });
+  }
+
+  public login(model: LoginModel): Observable<TokenModel>{
+    return this.http.post<TokenModel>(`${environment.backendUri}/api/Auth/login`, model);
   }
 
   public getEmployees(page: number, pageSize: number){
@@ -57,18 +95,30 @@ export class AuthService{
   }
 
   public getUserId(){
+    if(!this.isLogedIn()){
+      return "";
+    }
     return this.decodePayload()['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'];
   }
 
   public getUserName(){
+    if(!this.isLogedIn()){
+      return "";
+    }
     return this.decodePayload()['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'];
   }
 
   public getEmail(){
+    if(!this.isLogedIn()){
+      return "";
+    }
     return this.decodePayload()['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'];
   }
 
   public getRoles(){
+    if(!this.isLogedIn()){
+      return [];
+    }
     let roles = this.decodePayload()['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
     if(typeof(roles)===typeof('string')){
       return [roles];
@@ -80,12 +130,12 @@ export class AuthService{
   private decodePayload(){
     let payload = this.getPayload();
     if(!payload){
-      return null;
+      return "";
     }
     return JSON.parse(atob(payload));
   }
 
   private getPayload(){
-    return localStorage.getItem('jwt')?.split('.')[1];
+    return localStorage.getItem('jwt')?.split('.')[1]??"";
   }
 }

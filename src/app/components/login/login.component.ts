@@ -29,13 +29,9 @@ export class LoginComponent {
 
 
   public onClick() {
-    console.log(this.email);
-    console.log(this.password);
-
     this.authService.login(new LoginModel(this.email, this.password)).subscribe((response: TokenModel) => {
       localStorage.setItem('jwt', response.token);
       this.redirectToReturnUrl();
     });
-
   }
 }

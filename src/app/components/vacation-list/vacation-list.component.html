@@ -1,22 +1,46 @@
+<div class="table-responsive">
 
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>From</th>
-      <th>To</th>
-      <th>Reason</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (v of vacations; track v.id) {
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <td>{{v.id}}</td>
-        <td>{{v.dateFrom}}</td>
-        <td>{{v.dateTo}}</td>
-        <td>{{v.reason}}</td>
-
+        <th>ID</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Reason</th>
+        <th>Status</th>
+        <th>Actions</th>
       </tr>
+    </thead>
+    <tbody>
+      @for (v of vacations; track v.id) {
+        <tr>
+          <td>{{$index + 1}}</td>
+          <td>{{v.dateFrom}}</td>
+          <td>{{v.dateTo}}</td>
+          <td>{{v.reason}}</td>
+          <td>{{v.status?.name}}</td>
+          <td class="text-nowrap">
+            @if (isAdminOrManager() && v.id && v.status?.name === 'Pending') {
+              <button class="btn btn-success" (click)="approve(v.id)">Approve</button>
+              <button class="btn btn-danger mx-1" (click)="rejectModal(v.id)">Reject</button>
+            }
+            @if(isSuperAdmin() || isMyVacation(v)) {
+              <button class="btn btn-danger" (click)="remove(v.id!)">Delete</button>
+            }
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+</div>
+@if (totalPages > 1) {
+  <ul class="d-flex justify-content-center pagination">
+    @for (i of [].constructor(totalPages); track $index) {
+      <li class="mx-1">
+        <a href="#" (click)="changePage($index + 1)">{{$index + 1}}</a>
+      </li>
     }
-  </tbody>
-</table>
+  </ul>
+}
+

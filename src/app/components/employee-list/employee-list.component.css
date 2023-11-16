@@ -1,0 +1,13 @@
+.pagination li{
+  display: inline-block;
+  padding: 0 10px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.pagination a{
+text-decoration: none;
+}

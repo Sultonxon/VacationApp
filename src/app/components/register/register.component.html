@@ -15,6 +15,10 @@
       <input class="form-input" type="email" id="email" name="email" [(ngModel)]="registerModel.email" required>
     </div>
     <div class="form-container">
+      <label for="userName">User Name:</label>
+      <input class="form-input" type="text" id="userName" name="userName" [(ngModel)]="registerModel.userName" required>
+    </div>
+    <div class="form-container">
       <label for="password">Password:</label>
       <input class="form-input" type="password" id="password" name="password" [(ngModel)]="registerModel.password" required>
     </div>
@@ -25,10 +29,10 @@
     <div class="form-container">
 
       <div>
-        <button class="form-submit" type="submit">Register</button>
-        <button class="form-submit" type="submit">Register as Admin</button>
-        <button class="form-submit" type="submit">Register as Manager</button>
-        <button class="cancel-button">Cancel</button>
+        <button class="form-submit" (click)="createEmployee()">Register</button>
+        <button class="form-submit" (click)="createAdmin()">Register as Admin</button>
+        <button class="form-submit" (click)="createManager()">Register as Manager</button>
+        <button class="cancel-button" [routerLink]="'/'">Cancel</button>
 
       </div>
     </div>

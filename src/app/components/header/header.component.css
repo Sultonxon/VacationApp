@@ -1,4 +1,4 @@
-.pagination li{
+ul>li{
     display: inline-block;
     padding: 0 10px;
     font-size: 20px;
@@ -8,6 +8,10 @@
     transition: all 0.3s ease-in-out;
 }
 
-.pagination a{
+nav{
+  background-color: whitesmoke;
+}
+
+ul a{
   text-decoration: none;
 }

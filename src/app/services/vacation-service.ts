@@ -1,12 +1,12 @@
 import { HttpClient } from "@angular/common/http";
 import { VacationCreateModel } from "../models/vacation-create-model";
 import { environment } from "../../environments/environment";
-import { Inject } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { PagedResult } from "../models/paged-result";
 import { VacationModel } from "../models/vacation-model";
 
-@Inject('root')
+@Injectable()
 export class VacationService{
   constructor(public http: HttpClient){
 
@@ -39,6 +39,14 @@ export class VacationService{
     })
   }
 
+  public delete(id: string){
+    return this.http.delete(`${environment.backendUri}/api/Vacation/delete/${id}`, {
+      headers: {
+        'Authorization':`Bearer ${localStorage.getItem('jwt')}`
+      }
+    })
+  }
+
   public getApailableDays(): Observable<{AvailableDays: number}>{
     return this.http.get<{AvailableDays:number}>(`${environment.backendUri}/api/Vacation/available`, {
       headers: {
@@ -61,6 +69,18 @@ export class VacationService{
 
     return this.http.get<PagedResult<VacationModel>>(
       `${environment.backendUri}/api/Vacation/user?page=${page}&pageSize=${pageSize}`,
+      {
+        headers: {
+          'Authorization':`Bearer ${localStorage.getItem('jwt')}`
+        }
+      })
+  }
+
+
+  public getByUserId(page: number, pageSize: number, userId: string){
+
+    return this.http.get<PagedResult<VacationModel>>(
+      `${environment.backendUri}/api/Vacation/users/${userId}/${page}/${pageSize}`,
       {
         headers: {
           'Authorization':`Bearer ${localStorage.getItem('jwt')}`

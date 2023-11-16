@@ -1,0 +1,29 @@
+
+<div>
+  <form>
+    <div>
+      <mat-form-field class="example-form-field">
+        <mat-label>First campaign</mat-label>
+        <mat-date-range-input [min]="today"
+          [formGroup]="campaignOne"
+          [rangePicker]="campaignOnePicker"
+          >
+          <input matStartDate placeholder="Start date" formControlName="start">
+          <input matEndDate placeholder="End date" formControlName="end">
+        </mat-date-range-input>
+        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
+        <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <label class="form-label" for="reason">Last Name:</label>
+      <input class="form-control" type="text" name="reason" [(ngModel)]="reason" placeholder="Reason" id="reason">
+    </div>
+
+    <div>
+      <button class="btn btn-primary" (click)="createVacation()">Create</button>
+    </div>
+  </form>
+</div>
