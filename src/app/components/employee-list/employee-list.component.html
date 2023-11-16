@@ -9,6 +9,13 @@
         <th>Email</th>
       </tr>
     <tbody>
+      <tr (click)="filterByUser('')">
+        <td></td>
+        <td></td>
+        <td colspan="4">
+          Tab to all vacations without filter
+        </td>
+      </tr>
       @for (e of employees?.items; track e.id) {
         <tr (click)="filterByUser(e.id)">
           <td>{{$index + 1}}</td>

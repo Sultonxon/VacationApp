@@ -11,3 +11,8 @@
 .pagination a{
 text-decoration: none;
 }
+
+tbody tr:hover{
+  cursor: pointer;
+
+}
