@@ -109,6 +109,11 @@ export class EmployeeListComponent implements OnInit {
         let lastName = $('#input-last_name').val()?.toString();
         let email = $('#input-email').val()?.toString();
 
+        if(!userName?.length || !firstName?.length || !lastName?.length || !email?.length){
+          this.sharedService.toastError('Please fill all fields');
+          return;
+        }
+
         var model = new UserUpdateModel(user.id,
           userName?? user.userName,
           firstName??user.firstName!,
@@ -134,10 +139,10 @@ export class EmployeeListComponent implements OnInit {
 
     Swal.fire({
       width: 500,
-      title: 'Edit user data',
+      title: 'Edit Password',
       html:
         '<div class="form-group">' +
-        '<input id="input-password" type="text" class="form-control m-2"  placeholder="LastName" />' +
+        '<input id="input-password" type="text" class="form-control m-2"  placeholder="New Password" />' +
         '</div>',
       showCancelButton: true,
       customClass: {
