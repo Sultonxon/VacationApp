@@ -34,21 +34,6 @@ export class EmployeeListComponent implements OnInit {
     this.getEmployees();
   }
 
-  role() {
-    var roles = this.authService.getRoles();
-    if (roles.includes('SuperAdmin')) {
-      return 'SuperAdmin';
-    }
-    if (roles.includes('Admin')) {
-      return 'Admin';
-    }
-    if (roles.includes('Manager')) {
-      return 'Manager';
-    }
-
-    return 'User';
-  }
-
   private getEmployees(): void {
     console.log(this.isAdmin() || this.isSuperAdmin());
 
