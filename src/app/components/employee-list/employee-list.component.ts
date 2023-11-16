@@ -83,7 +83,7 @@ export class EmployeeListComponent implements OnInit {
   update(user: UserModel) {
     Swal.fire({
       width: 500,
-      title: 'Edit the Phone number',
+      title: 'Edit user data',
       html:
         '<div class="form-group">' +
         '<input id="input-first_name" type="text" class="form-control m-2"  placeholder="FirstName" />' +
@@ -134,7 +134,7 @@ export class EmployeeListComponent implements OnInit {
 
     Swal.fire({
       width: 500,
-      title: 'Edit the Phone number',
+      title: 'Edit user data',
       html:
         '<div class="form-group">' +
         '<input id="input-password" type="text" class="form-control m-2"  placeholder="LastName" />' +

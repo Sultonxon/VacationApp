@@ -153,7 +153,7 @@ export class VacationListComponent implements OnInit, OnChanges {
   rejectModal(id: string) {
     Swal.fire({
       width: 500,
-      title: 'Edit the Phone number',
+      title: 'Add the comment',
       html:
         '<div class="form-group">' +
         '<input id="input-comment" type="text" class="form-control m-2"  placeholder="FirstName" />' +
