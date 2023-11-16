@@ -10,6 +10,7 @@
     </ul>
     <div>
       <h4 class="fw-bold opacity-75">{{authService.getUserName()}}</h4>
+      <h5 class="fw-bold opacity-75">{{role()}}</h5>
       @if (isLogedIn()) {
       <button class="btn btn-danger" (click)="logout()">Logout</button>
       }

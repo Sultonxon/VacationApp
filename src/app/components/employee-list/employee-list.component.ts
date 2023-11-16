@@ -16,6 +16,7 @@ import { SharedService } from '../../services/shared-service';
   styleUrl: './employee-list.component.css',
 })
 export class EmployeeListComponent implements OnInit {
+
   constructor(public authService: AuthService, private sharedService: SharedService) {}
 
   public employees?: PagedResult<UserModel>;
@@ -31,6 +32,21 @@ export class EmployeeListComponent implements OnInit {
   public changePage(page: number): void {
     this.page = page;
     this.getEmployees();
+  }
+
+  role() {
+    var roles = this.authService.getRoles();
+    if (roles.includes('SuperAdmin')) {
+      return 'SuperAdmin';
+    }
+    if (roles.includes('Admin')) {
+      return 'Admin';
+    }
+    if (roles.includes('Manager')) {
+      return 'Manager';
+    }
+
+    return 'User';
   }
 
   private getEmployees(): void {
